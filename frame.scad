@@ -28,7 +28,7 @@ faceplate_thickness=4;
 
 backframe_thickness=7;
 backframe_center_thickness=2;
-backframe_inset=3;
+backframe_inset=5;
 
 module flange() {
     linear_extrude(height=flange_height, center=true) {
@@ -172,10 +172,10 @@ module front_frame() {
 module back_frame_plate() {
     linear_extrude(height=backframe_center_thickness, center=false) {
         polygon(points=[
-            [-display_width/2+backframe_inset+display_left_bezel,-display_height/2+faceplate_inset+display_bottom_bezel],
-            [-display_width/2+backframe_inset+display_left_bezel, display_height/2-faceplate_inset-display_top_bezel],
-            [display_width/2-backframe_inset-display_right_bezel, display_height/2-faceplate_inset-display_top_bezel],
-            [display_width/2-backframe_inset-display_right_bezel, -display_height/2+faceplate_inset+display_bottom_bezel],
+            [-display_width/2+backframe_inset+display_left_bezel,-display_height/2+backframe_inset+display_bottom_bezel],
+            [-display_width/2+backframe_inset+display_left_bezel, display_height/2-backframe_inset-display_top_bezel],
+            [display_width/2-backframe_inset-display_right_bezel, display_height/2-backframe_inset-display_top_bezel],
+            [display_width/2-backframe_inset-display_right_bezel, -display_height/2+backframe_inset+display_bottom_bezel],
             [-display_width/2-faceplate_lside_width,-display_height/2-faceplate_bottom_width],
             [-display_width/2-faceplate_lside_width, display_height/2+faceplate_top_width],
             [display_width/2+faceplate_rside_width, display_height/2+faceplate_top_width],
