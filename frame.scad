@@ -18,8 +18,9 @@ frame_boss_radius=3;
 button_boss_radius=3;
 button_boss_height=3.5;
 
-flange_width=2;
-flange_height=4;
+flange_height=5;
+flange_gap=0.5;
+flange_width=2+flange_gap;
 
 faceplate_inset=2;
 faceplate_lside_width=22;
@@ -28,7 +29,7 @@ faceplate_top_width=5;
 faceplate_bottom_width=18;
 faceplate_thickness=4;
 
-backframe_thickness=7;
+backframe_thickness=8;
 backframe_center_thickness=2;
 backframe_inset=5;
 
@@ -70,10 +71,10 @@ module frame_holes() {
 module flange() {
     linear_extrude(height=flange_height, center=true) {
         polygon(points=[
-            [-display_width/2,-display_height/2],
-            [-display_width/2, display_height/2],
-            [display_width/2, display_height/2],
-            [display_width/2, -display_height/2],
+            [-display_width/2-flange_gap,-display_height/2-flange_gap],
+            [-display_width/2-flange_gap, display_height/2+flange_gap],
+            [display_width/2+flange_gap, display_height/2+flange_gap],
+            [display_width/2+flange_gap, -display_height/2-flange_gap],
             [-display_width/2-flange_width,-display_height/2-flange_width],
             [-display_width/2-flange_width, display_height/2+flange_width],
             [display_width/2+flange_width, display_height/2+flange_width],
@@ -343,22 +344,52 @@ module back_frame() {
     }
 }
 
-module cutoff() {
+cut_line = [
+[0,faceplate_thickness+2],
+[0,-2],
+[-4,-2],
+[-4,-backframe_thickness+2]];
+
+module cutoff_left() {
+    outline = concat(cut_line, 
+    [[display_width,-backframe_thickness+2],
+    [display_width,faceplate_thickness+2],
+    [0,faceplate_thickness+2]]);
     rotate(a=[90,0,0])
         linear_extrude(height=display_height*2, center=true)
-            polygon([[0,faceplate_thickness+2],[0,2],[-4,2],[-4,-backframe_thickness-2],[display_width,-backframe_thickness-2],[display_width,faceplate_thickness+2],[0,faceplate_thickness+2]]);
+            polygon(outline);
+}
+
+module cutoff_right() {
+    outline = concat(cut_line, 
+    [[-display_width,-backframe_thickness+2],
+    [-display_width,faceplate_thickness+2],
+    [0,faceplate_thickness+2]]);
+    rotate(a=[90,0,0])
+        linear_extrude(height=display_height*2, center=true)
+            polygon(outline);
 }
 
 //front_frame();
 //back_frame();
 //cutoff();
 
-module front_frame_half() {
+module front_frame_left() {
     rotate(a=[180,0,0])
         difference() {
             front_frame();
-	    cutoff();
+            cutoff_left();
         }
 }
 
-front_frame_half();
+module front_frame_right() {
+    translate([10,0,0])
+        rotate(a=[180,0,0])
+            difference() {
+                front_frame();
+                cutoff_right();
+            }
+}
+
+*front_frame_left();
+front_frame_right();
