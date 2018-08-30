@@ -29,10 +29,10 @@ module flange() {
             [-display_width/2-flange_gap, display_height/2+flange_gap],
             [display_width/2+flange_gap, display_height/2+flange_gap],
             [display_width/2+flange_gap, -display_height/2-flange_gap],
-            [-display_width/2-flange_width,-display_height/2-flange_width],
-            [-display_width/2-flange_width, display_height/2+flange_width],
-            [display_width/2+flange_width, display_height/2+flange_width],
-            [display_width/2+flange_width, -display_height/2-flange_width]],
+            [-display_width/2-flange_width-flange_gap,-display_height/2-flange_width-flange_gap],
+            [-display_width/2-flange_width-flange_gap, display_height/2+flange_width+flange_gap],
+            [display_width/2+flange_width+flange_gap, display_height/2+flange_width+flange_gap],
+            [display_width/2+flange_width+flange_gap, -display_height/2-flange_width-flange_gap]],
             paths=[[0,1,2,3],[4,5,6,7]]);
     }
 }
@@ -94,6 +94,8 @@ module button_holes() {
 
 module button_pcb_boss() {
     cylinder(h=button_boss_height,r=button_boss_radius);
+    translate([0,0,-pcb_thickness])
+        cylinder(h=pcb_thickness,r=pcb_boss_radius,$fn=36);
 }
 
 module left_button_pcb_bosses() {
@@ -297,3 +299,5 @@ module back_frame() {
         frame_holes();
     }
 }
+
+front_frame();

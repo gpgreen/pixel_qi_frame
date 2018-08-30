@@ -6,13 +6,13 @@ display_left_bezel=4;
 display_right_bezel=6;
 
 flange_height=5;
-flange_gap=0.5;
-flange_width=2+flange_gap;
+flange_gap=1;
+flange_width=2;
 
 faceplate_inset=2;
 faceplate_lside_width=22;
 faceplate_rside_width=20;
-faceplate_top_width=5;
+faceplate_top_width=6;
 faceplate_bottom_width=18;
 faceplate_thickness=4;
 
@@ -29,6 +29,7 @@ num_side_buttons=5;
 button_bottom_offset=5;
 button_side_offset=5;
 
+pcb_boss_radius=1.5;
 pcb_thickness=1;
 
 button_boss_radius=3;

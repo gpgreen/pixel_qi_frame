@@ -2,9 +2,9 @@ include <frame_config.scad>
 
 module button_top() {
     minkowski() {
-        cube([button_width-button_rad, 
-        button_height-button_rad, 
-        button_thickness-button_rad], 
+        cube([button_width-button_rad*.5, 
+        button_height-button_rad*.5, 
+        button_thickness-button_rad*.5], 
         center=true);
         cylinder(r=button_rad, h=1, $fn=50);
     }
@@ -13,22 +13,22 @@ module button_top() {
 module button_bottom() {
     linear_extrude(height=1, center=true) {
         polygon(points=[
-	[0, 0],
-	[button_width+2,0],
-	[button_width+2, button_height],
-	[0, button_height],
-	[0,0]]);
+	[-1, -.75],
+	[button_width+3,-.75],
+	[button_width+3, button_height+.75],
+	[-1, button_height+.75],
+	[-1,-.75]]);
     }
 }
 
 module side_button_bottom() {
     linear_extrude(height=1, center=true) {
         polygon(points=[
-	[0, 0],
-	[button_width,0],
-	[button_width, button_height+2],
-	[0, button_height+2],
-	[0,0]]);
+	[-.75, -1],
+	[button_width+.75,-1],
+	[button_width+.75, button_height+3],
+	[-.75, button_height+3],
+	[-.75,-1]]);
     }
 }
 
@@ -45,10 +45,6 @@ module side_button() {
     translate([0,0,button_thickness/2])
         button_top();
 }
-
-//bottom_button();
-//translate([20,0,0])
-    //side_button();
 
 module side_buttons() {
     for(i=[0:num_side_buttons-1]) {
