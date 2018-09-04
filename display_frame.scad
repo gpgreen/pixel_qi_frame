@@ -99,16 +99,7 @@ bcut_line = [
 [-4,0]];
 
 module back_cutoff_top() {
-    bcut_offset = [
-    [.1,0],
-    [.1,.1],
-    [.1,.1],
-    [.1,.1],
-    [-.1,.1],
-    [-.1,.1],
-    [.1,.1],
-    [.1,0]];
-    outline = concat(bcut_line+bcut_offset,
+    outline = concat(bcut_line,
     [[display_width,0],
     [display_width,-backframe_thickness-1],
     [4,-backframe_thickness-1]]);
@@ -118,7 +109,16 @@ module back_cutoff_top() {
 }
 
 module back_cutoff_bottom() {
-    outline = concat(bcut_line, 
+    bcut_offset = [
+    [.1,0],
+    [.1,.1],
+    [.1,.1],
+    [.1,.1],
+    [-.1,.1],
+    [-.1,.1],
+    [.1,.1],
+    [.1,0]];
+    outline = concat(bcut_line + bcut_offset, 
     [[-display_width,0],
     [-display_width,-backframe_thickness-1],
     [4,-backframe_thickness-1]]);
@@ -172,7 +172,7 @@ module back_frame_top() {
             }
 }
 
-mod = "back_frame_bottom";
+mod = "back_frame_right";
 do_cut = true;
 
 if (mod == "front_frame") {
