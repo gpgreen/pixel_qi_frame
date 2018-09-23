@@ -3,25 +3,33 @@ use <frame.scad>
 use <button.scad>
 
 fcut_line = [
-[2,faceplate_thickness+.5],
+[4,faceplate_thickness+.5],
+[4,faceplate_thickness-2],
 [2,faceplate_thickness-2],
-[0,faceplate_thickness-2],
-[0,faceplate_thickness-1],
-[-3,faceplate_thickness-1],
-[-3,-backframe_thickness+2]];
+[2,faceplate_thickness-1],
+[-1,faceplate_thickness-1],
+[-1,-3],
+[-3,-3],
+[-3,-2],
+[-5,-2],
+[-5,-backframe_thickness+2]];
 
 module front_cutoff_bottom() {
     fcut_offset=[
-    [-.1,0],
-    [-.1,.1],
-    [.1,.1],
-    [.1,.1],
-    [-.1,.1],
-    [-.1,0]];
+    [-cut_gap,0],
+    [-cut_gap,cut_gap],
+    [cut_gap,cut_gap],
+    [cut_gap,cut_gap],
+    [-cut_gap,cut_gap],
+    [-cut_gap,cut_gap],
+    [cut_gap,cut_gap],
+    [cut_gap,cut_gap],
+    [-cut_gap,cut_gap],
+    [-cut_gap,0]];
     outline = concat(fcut_line+fcut_offset, 
     [[display_width,-backframe_thickness+2],
     [display_width,faceplate_thickness],
-    [1.9,faceplate_thickness+.5]]);
+    [4-cut_gap,faceplate_thickness+.5]]);
     rotate(a=[90,0,0])
         linear_extrude(height=display_height*2, center=true)
             polygon(outline);
@@ -31,7 +39,7 @@ module front_cutoff_top() {
     outline = concat(fcut_line, 
     [[-display_width,-backframe_thickness+2],
     [-display_width,faceplate_thickness],
-    [2,faceplate_thickness+.5]]);
+    [4,faceplate_thickness+.5]]);
     rotate(a=[90,0,0])
         linear_extrude(height=display_height*2, center=true)
             polygon(outline);
@@ -110,14 +118,14 @@ module back_cutoff_top() {
 
 module back_cutoff_bottom() {
     bcut_offset = [
-    [.1,0],
-    [.1,.1],
-    [.1,.1],
-    [.1,.1],
-    [-.1,.1],
-    [-.1,.1],
-    [.1,.1],
-    [.1,0]];
+    [cut_gap,0],
+    [cut_gap,cut_gap],
+    [cut_gap,cut_gap],
+    [cut_gap,cut_gap],
+    [-cut_gap,cut_gap],
+    [-cut_gap,cut_gap],
+    [cut_gap,cut_gap],
+    [cut_gap,0]];
     outline = concat(bcut_line + bcut_offset, 
     [[-display_width,0],
     [-display_width,-backframe_thickness-1],
@@ -172,7 +180,7 @@ module back_frame_top() {
             }
 }
 
-mod = "back_frame_right";
+mod = "front_frame_bottom";
 do_cut = true;
 
 if (mod == "front_frame") {

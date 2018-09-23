@@ -29,7 +29,7 @@ num_side_buttons=5;
 button_bottom_offset=5;
 button_side_offset=5;
 
-pcb_boss_radius=1.5;
+pcb_boss_radius=1;
 pcb_thickness=1;
 
 button_boss_radius=3;
@@ -39,6 +39,8 @@ backframe_boss_radius=3;
 backframe_boss_height=backframe_thickness-pcb_thickness-button_boss_height;
 
 frame_boss_radius=3;
+
+cut_gap=.2;
 
 // Vector of display corners
 display_corners = [
