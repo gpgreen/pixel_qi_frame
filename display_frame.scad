@@ -100,10 +100,10 @@ bcut_line = [
 [4,-backframe_thickness-1],
 [4,-backframe_thickness+1],
 [0,-backframe_thickness+1],
-[0,-1],
-[-2,-1],
-[-2,-2],
-[-4,-2],
+[0,-3],
+[-2,-3],
+[-2,-4],
+[-4,-4],
 [-4,0]];
 
 module back_cutoff_top() {
@@ -129,7 +129,7 @@ module back_cutoff_bottom() {
     outline = concat(bcut_line + bcut_offset, 
     [[-display_width,0],
     [-display_width,-backframe_thickness-1],
-    [4,-backframe_thickness-1]]);
+    [4+cut_gap,-backframe_thickness-1]]);
     rotate(a=[90,0,0])
         linear_extrude(height=display_height*2, center=true)
             polygon(outline);
@@ -180,7 +180,7 @@ module back_frame_top() {
             }
 }
 
-mod = "front_frame_bottom";
+mod = "display";
 do_cut = true;
 
 if (mod == "front_frame") {

@@ -282,6 +282,24 @@ module back_frame_bosses() {
         frame_boss();
 }
 
+module bottom_connector_hole() {
+    xint = display_width/(num_bot_buttons+1);
+    translate([-xint/2-7.5,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2-4,-15])
+        cube([15,8,20]);
+}
+
+module left_side_connector_hole() {
+    translate([-display_width/2-faceplate_lside_width+button_side_offset+button_width/2+4,-7,-15])
+        rotate(a=[0,0,90])
+            cube([14,8,20]);
+}
+
+module right_side_connector_hole() {
+    translate([display_width/2+faceplate_rside_width-button_side_offset-button_width/2+4,-7,-15])
+        rotate(a=[0,0,90])
+            cube([14,8,20]);
+}
+
 module back_frame_assy() {
     translate([0,0,-backframe_thickness])
         back_frame_plate();
@@ -297,7 +315,10 @@ module back_frame() {
     difference() {
         back_frame_assy();
         frame_holes();
+        bottom_connector_hole();
+        left_side_connector_hole();
+        right_side_connector_hole();
     }
 }
 
-front_frame();
+back_frame();
