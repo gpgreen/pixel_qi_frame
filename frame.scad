@@ -22,8 +22,8 @@ module frame_holes() {
         frame_hole();
 }
 
-module flange() {
-    linear_extrude(height=flange_height, center=true) {
+module flange(ht) {
+    linear_extrude(height=ht, center=true) {
         polygon(points=[
             [-display_width/2-flange_gap,-display_height/2-flange_gap],
             [-display_width/2-flange_gap, display_height/2+flange_gap],
@@ -103,9 +103,9 @@ module left_button_pcb_bosses() {
         yint = display_height/(num_side_buttons+1);
         y = yint * (num_side_buttons/2 - i + 1);
         translate([-display_width/2-faceplate_lside_width+button_side_offset+button_width/2,y-yint,-button_boss_height])
-            button_pcb_boss();
-        }
+           button_pcb_boss();
     }
+}
     
 module right_button_pcb_bosses() {
     for(i=[0:num_side_buttons]) {
@@ -114,7 +114,7 @@ module right_button_pcb_bosses() {
         translate([display_width/2+faceplate_rside_width-button_side_offset-button_width/2,y-yint,-button_boss_height])
             button_pcb_boss();
         }
-    }
+}
     
 module bottom_button_pcb_bosses() {
     for(i=[0:num_bot_buttons]) {
@@ -179,7 +179,7 @@ module front_frame_bosses() {
 
 module faceplate_assembly() {
     translate([0,0,-flange_height/2])
-        flange();
+        flange(flange_height);
     translate([0,0,faceplate_thickness/2])
         faceplate();
     left_button_pcb_bosses();
@@ -194,7 +194,7 @@ module front_frame() {
         outside_trim_all();
         button_holes();
         faceplate_inner_trim();
-	frame_holes();
+        frame_holes();
     }
 }
 
@@ -239,8 +239,8 @@ module left_back_pcb_bosses() {
         y = yint * (num_side_buttons/2 - i + 1);
         translate([-display_width/2-faceplate_lside_width+button_side_offset+button_width/2,y-yint,-backframe_thickness])
             back_pcb_boss();
-        }
     }
+}
     
 module right_back_pcb_bosses() {
     for(i=[0:num_side_buttons]) {
@@ -248,8 +248,8 @@ module right_back_pcb_bosses() {
         y = yint * (num_side_buttons/2 - i + 1);
         translate([display_width/2+faceplate_rside_width-button_side_offset-button_width/2,y-yint,-backframe_thickness])
             back_pcb_boss();
-        }
     }
+}
     
 module bottom_back_pcb_bosses() {
     for(i=[0:num_bot_buttons]) {
@@ -305,6 +305,8 @@ module back_frame_assy() {
         back_frame_plate();
     translate([0,0,-backframe_thickness/2])
         back_frame_outer_flange();
+    translate([0,0,-flange_height])
+        flange(backframe_thickness-flange_height-backframe_center_thickness);
     left_back_pcb_bosses();
     right_back_pcb_bosses();
     bottom_back_pcb_bosses();
@@ -321,4 +323,5 @@ module back_frame() {
     }
 }
 
-back_frame();
+front_frame();
+!back_frame();

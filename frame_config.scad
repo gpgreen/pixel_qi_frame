@@ -30,7 +30,7 @@ button_bottom_offset=5;
 button_side_offset=5;
 
 pcb_boss_radius=1;
-pcb_thickness=1;
+pcb_thickness=1.5;
 
 button_boss_radius=3;
 button_boss_height=3.5;
