@@ -23,7 +23,7 @@ module frame_holes() {
 }
 
 module flange(ht) {
-    linear_extrude(height=ht, center=true) {
+    linear_extrude(height=ht, center=false) {
         polygon(points=[
             [-display_width/2-flange_gap,-display_height/2-flange_gap],
             [-display_width/2-flange_gap, display_height/2+flange_gap],
@@ -178,7 +178,7 @@ module front_frame_bosses() {
 }
 
 module faceplate_assembly() {
-    translate([0,0,-flange_height/2])
+    translate([0,0,-flange_height])
         flange(flange_height);
     translate([0,0,faceplate_thickness/2])
         faceplate();
@@ -305,8 +305,8 @@ module back_frame_assy() {
         back_frame_plate();
     translate([0,0,-backframe_thickness/2])
         back_frame_outer_flange();
-    translate([0,0,-flange_height])
-        flange(backframe_thickness-flange_height-backframe_center_thickness);
+    translate([0,0,-backframe_thickness])
+        flange(backframe_thickness-flange_height);
     left_back_pcb_bosses();
     right_back_pcb_bosses();
     bottom_back_pcb_bosses();

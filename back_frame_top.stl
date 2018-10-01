@@ -16,14 +16,28 @@ solid OpenSCAD_Model
   facet normal -0 0 1
     outer loop
       vertex -79.8 95.5 -6
-      vertex 79.8 78.5 -6
+      vertex 79.8 94.5 -6
       vertex 79.8 95.5 -6
     endloop
   endfacet
   facet normal 0 0 1
     outer loop
-      vertex 79.8 78.5 -6
+      vertex 79.8 94.5 -6
       vertex -79.8 95.5 -6
+      vertex -79.8 94.5 -6
+    endloop
+  endfacet
+  facet normal -0 0 1
+    outer loop
+      vertex -79.8 92.5 -6
+      vertex 79.8 78.5 -6
+      vertex 79.8 92.5 -6
+    endloop
+  endfacet
+  facet normal 0 0 1
+    outer loop
+      vertex 79.8 78.5 -6
+      vertex -79.8 92.5 -6
       vertex -79.8 78.5 -6
     endloop
   endfacet
@@ -251,6 +265,48 @@ solid OpenSCAD_Model
       vertex 79.8 95.5 -6
     endloop
   endfacet
+  facet normal -0 0 1
+    outer loop
+      vertex -79.8 94.5 -5
+      vertex 79.8 92.5 -5
+      vertex 79.8 94.5 -5
+    endloop
+  endfacet
+  facet normal 0 0 1
+    outer loop
+      vertex 79.8 92.5 -5
+      vertex -79.8 94.5 -5
+      vertex -79.8 92.5 -5
+    endloop
+  endfacet
+  facet normal 0 1 -0
+    outer loop
+      vertex 79.8 94.5 -6
+      vertex -79.8 94.5 -5
+      vertex 79.8 94.5 -5
+    endloop
+  endfacet
+  facet normal 0 1 0
+    outer loop
+      vertex -79.8 94.5 -5
+      vertex 79.8 94.5 -6
+      vertex -79.8 94.5 -6
+    endloop
+  endfacet
+  facet normal 0 -1 0
+    outer loop
+      vertex -79.8 92.5 -6
+      vertex 79.8 92.5 -5
+      vertex -79.8 92.5 -5
+    endloop
+  endfacet
+  facet normal 0 -1 -0
+    outer loop
+      vertex 79.8 92.5 -5
+      vertex -79.8 92.5 -6
+      vertex 79.8 92.5 -6
+    endloop
+  endfacet
   facet normal 0 -2.50967e-08 -1
     outer loop
       vertex -79.8 78.5 -6.79999
@@ -274,14 +330,35 @@ solid OpenSCAD_Model
   endfacet
   facet normal -1 0 0
     outer loop
-      vertex -79.8 78.5 -6.79999
+      vertex -79.8 97.5 -6.79999
+      vertex -79.8 94.5 -6
       vertex -79.8 95.5 -6
+    endloop
+  endfacet
+  facet normal -1 0 0
+    outer loop
+      vertex -79.8 94.5 -6
+      vertex -79.8 92.5 -6
+      vertex -79.8 94.5 -5
+    endloop
+  endfacet
+  facet normal -1 0 0
+    outer loop
+      vertex -79.8 97.5 -6.79999
+      vertex -79.8 92.5 -6
+      vertex -79.8 94.5 -6
+    endloop
+  endfacet
+  facet normal -1 0 0
+    outer loop
+      vertex -79.8 78.5 -6.79999
+      vertex -79.8 92.5 -6
       vertex -79.8 97.5 -6.79999
     endloop
   endfacet
   facet normal -1 -0 0
     outer loop
-      vertex -79.8 95.5 -6
+      vertex -79.8 92.5 -6
       vertex -79.8 78.5 -6.79999
       vertex -79.8 78.5 -6
     endloop
@@ -291,6 +368,13 @@ solid OpenSCAD_Model
       vertex -79.8 97.5 -2.79999
       vertex -79.8 95.5 -6
       vertex -79.8 95.5 -2.79999
+    endloop
+  endfacet
+  facet normal -1 -0 0
+    outer loop
+      vertex -79.8 94.5 -5
+      vertex -79.8 92.5 -6
+      vertex -79.8 92.5 -5
     endloop
   endfacet
   facet normal 0 0 -1
@@ -379,6 +463,13 @@ solid OpenSCAD_Model
   endfacet
   facet normal 1 0 0
     outer loop
+      vertex 79.8 94.5 -5
+      vertex 79.8 92.5 -5
+      vertex 79.8 94.5 -6
+    endloop
+  endfacet
+  facet normal 1 0 0
+    outer loop
       vertex 79.8 95.5 -6
       vertex 79.8 97.5 -2.79999
       vertex 79.8 95.5 -2.79999
@@ -391,16 +482,37 @@ solid OpenSCAD_Model
       vertex 79.8 97.5 -6.79999
     endloop
   endfacet
+  facet normal 1 -0 0
+    outer loop
+      vertex 79.8 94.5 -6
+      vertex 79.8 97.5 -6.79999
+      vertex 79.8 95.5 -6
+    endloop
+  endfacet
+  facet normal 1 0 0
+    outer loop
+      vertex 79.8 92.5 -6
+      vertex 79.8 94.5 -6
+      vertex 79.8 92.5 -5
+    endloop
+  endfacet
+  facet normal 1 -0 0
+    outer loop
+      vertex 79.8 92.5 -6
+      vertex 79.8 97.5 -6.79999
+      vertex 79.8 94.5 -6
+    endloop
+  endfacet
   facet normal 1 0 0
     outer loop
       vertex 79.8 78.5 -6.79999
-      vertex 79.8 95.5 -6
+      vertex 79.8 92.5 -6
       vertex 79.8 78.5 -6
     endloop
   endfacet
   facet normal 1 0 0
     outer loop
-      vertex 79.8 95.5 -6
+      vertex 79.8 92.5 -6
       vertex 79.8 78.5 -6.79999
       vertex 79.8 97.5 -6.79999
     endloop
