@@ -20,6 +20,8 @@ module frame_holes() {
         frame_hole();
     translate(trans[3])
         frame_hole();
+    translate([0,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2,-backframe_thickness])
+        frame_hole();
 }
 
 module flange(ht) {
