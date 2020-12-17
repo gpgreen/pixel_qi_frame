@@ -228,6 +228,6 @@ else if (mod == "back_frame_top")
 else if (mod == "display") {
     back_frame();
     front_frame();
-    side_buttons();
-    bottom_buttons();
+    if (have_buttons==1) side_buttons();
+    if (have_buttons==1) bottom_buttons();
 }

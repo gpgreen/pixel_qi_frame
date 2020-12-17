@@ -184,9 +184,9 @@ module faceplate_assembly() {
         flange(flange_height);
     translate([0,0,faceplate_thickness/2])
         faceplate();
-    left_button_pcb_bosses();
-    right_button_pcb_bosses();
-    bottom_button_pcb_bosses();
+    if (have_buttons==1) left_button_pcb_bosses();
+    if (have_buttons==1) right_button_pcb_bosses();
+    if (have_buttons==1) bottom_button_pcb_bosses();
     front_frame_bosses();
 }
 
@@ -194,7 +194,7 @@ module front_frame() {
     difference() {
         faceplate_assembly();
         outside_trim_all();
-        button_holes();
+        if (have_buttons==1) button_holes();
         faceplate_inner_trim();
         frame_holes();
     }
@@ -309,9 +309,9 @@ module back_frame_assy() {
         back_frame_outer_flange();
     translate([0,0,-backframe_thickness])
         flange(backframe_thickness-flange_height);
-    left_back_pcb_bosses();
-    right_back_pcb_bosses();
-    bottom_back_pcb_bosses();
+    if (have_buttons==1) left_back_pcb_bosses();
+    if (have_buttons==1) right_back_pcb_bosses();
+    if (have_buttons==1) bottom_back_pcb_bosses();
     back_frame_bosses();
 }
 
@@ -319,11 +319,11 @@ module back_frame() {
     difference() {
         back_frame_assy();
         frame_holes();
-        bottom_connector_hole();
-        left_side_connector_hole();
-        right_side_connector_hole();
+        if (have_buttons==1) bottom_connector_hole();
+        if (have_buttons==1) left_side_connector_hole();
+        if (have_buttons==1) right_side_connector_hole();
     }
 }
 
 front_frame();
-!back_frame();
+back_frame();

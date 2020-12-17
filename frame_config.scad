@@ -1,3 +1,5 @@
+have_buttons=0;
+
 display_width=234;
 display_height=143;
 display_top_bezel=8;
@@ -10,10 +12,10 @@ flange_gap=1;
 flange_width=2;
 
 faceplate_inset=2;
-faceplate_lside_width=22;
-faceplate_rside_width=20;
+faceplate_lside_width=(have_buttons==1)? 22 : 6;
+faceplate_rside_width=(have_buttons==1)? 20 : 6;
 faceplate_top_width=6;
-faceplate_bottom_width=18;
+faceplate_bottom_width=(have_buttons==1)? 18 : 6;
 faceplate_thickness=4;
 
 backframe_thickness=8;
