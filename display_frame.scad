@@ -26,7 +26,7 @@ module front_cutoff_bottom() {
     [cut_gap,cut_gap],
     [-cut_gap,cut_gap],
     [-cut_gap,0]];
-    outline = concat(fcut_line+fcut_offset, 
+    outline = concat(fcut_line+fcut_offset,
     [[display_width,-backframe_thickness+2],
     [display_width,faceplate_thickness],
     [4-cut_gap,faceplate_thickness+.5]]);
@@ -36,7 +36,7 @@ module front_cutoff_bottom() {
 }
 
 module front_cutoff_top() {
-    outline = concat(fcut_line, 
+    outline = concat(fcut_line,
     [[-display_width,-backframe_thickness+2],
     [-display_width,faceplate_thickness],
     [4,faceplate_thickness+.5]]);
@@ -126,7 +126,7 @@ module back_cutoff_bottom() {
     [-cut_gap,cut_gap],
     [cut_gap,cut_gap],
     [cut_gap,0]];
-    outline = concat(bcut_line + bcut_offset, 
+    outline = concat(bcut_line + bcut_offset,
     [[-display_width,0],
     [-display_width,-backframe_thickness-1],
     [4+cut_gap,-backframe_thickness-1]]);
@@ -180,28 +180,31 @@ module back_frame_top() {
             }
 }
 
-mod = "display";
-do_cut = true;
+mod = "front_frame";
+do_quarter_cut = false;
 
 if (mod == "front_frame") {
-    if (do_cut) {
-        front_frame_left();
-        front_frame_right();
-        front_frame_top();
-        front_frame_bottom();
-    }
-    else
-        front_frame();
+    translate([0,0,faceplate_thickness])
+        rotate([180,0,0])
+            if (do_quarter_cut) {
+                front_frame_left();
+                front_frame_right();
+                front_frame_top();
+                front_frame_bottom();
+            }
+            else
+                front_frame();
 }
 else if (mod == "back_frame") {
-    if (do_cut) {
-     	back_frame_left();
-     	back_frame_right();
-     	back_frame_top();
-     	back_frame_bottom();
-    }
-    else
-        back_frame();
+    translate([0,0,backframe_thickness])
+        if (do_quarter_cut) {
+            back_frame_left();
+            back_frame_right();
+            back_frame_top();
+            back_frame_bottom();
+        }
+        else
+            back_frame();
 }
 else if (mod == "bottom_button") {
     bottom_button();
@@ -228,6 +231,18 @@ else if (mod == "back_frame_top")
 else if (mod == "display") {
     back_frame();
     front_frame();
-    if (have_buttons==1) side_buttons();
-    if (have_buttons==1) bottom_buttons();
+    if (have_side_buttons==1) side_buttons();
+    if (have_bottom_buttons==1) bottom_buttons();
+}
+else if (mod == "cut_display") {
+    difference() {
+        union() {
+            back_frame();
+            front_frame();
+            if (have_side_buttons==1) side_buttons();
+            if (have_bottom_buttons==1) bottom_buttons();
+        }
+        translate([-display_width/2-faceplate_lside_width-10,-100-display_height/2-faceplate_bottom_width+7,-50])
+            cube([display_width+50,100,100]);
+    }
 }

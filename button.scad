@@ -2,11 +2,11 @@ include <frame_config.scad>
 
 module button_top() {
     minkowski() {
-        cube([button_width-button_rad*.5, 
-        button_height-button_rad*.5, 
-        button_thickness-button_rad*.5], 
+        cube([button_width-button_rad*.5,
+        button_height-button_rad*.5,
+        button_thickness-button_rad*.5],
         center=true);
-        cylinder(r=button_rad, h=1, $fn=50);
+        cylinder(r=button_rad, h=1, $fn=64);
     }
 }
 
@@ -58,10 +58,8 @@ module side_buttons() {
 }
 
 module bottom_buttons() {
-    for(i=[0:num_bot_buttons-1]) {
-        xint = display_width/(num_bot_buttons+1);
-        x = xint * (num_bot_buttons/2 - i);
-        translate([x-xint/2,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2,-1])
+    for(x=bottom_button_x_offsets) {
+        translate([x,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2,-1])
             bottom_button();
     }
 }
