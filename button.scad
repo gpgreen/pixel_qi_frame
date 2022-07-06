@@ -1,3 +1,8 @@
+// Display from for Pixel Qi lcd panel
+// Copyright 2022 Greg Green
+//
+// button.scad
+
 include <frame_config.scad>
 
 module button_top() {

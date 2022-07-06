@@ -1,3 +1,8 @@
+// Display for Pixel Qi lcd panel
+// Copyright 2022 Greg Green
+//
+// frame.scad
+
 include <frame_config.scad>
 
 module frame_hole() {

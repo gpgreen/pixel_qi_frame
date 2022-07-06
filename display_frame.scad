@@ -1,6 +1,12 @@
+// Display for Pixel Qi lcd panel
+// Copyright 2022 Greg Green
+//
+// display_frame.scad
+
 include <frame_config.scad>
 use <frame.scad>
 use <button.scad>
+use <graphics_box.scad>
 
 fcut_line = [
 [4,faceplate_thickness+.5],
@@ -180,7 +186,7 @@ module back_frame_top() {
             }
 }
 
-mod = "front_frame";
+mod = "cut_display";
 do_quarter_cut = false;
 
 if (mod == "front_frame") {
@@ -212,6 +218,11 @@ else if (mod == "bottom_button") {
 else if (mod == "side_button") {
     side_button();
 }
+else if (mod == "graphics_box") {
+    translate([0,0,faceplate_thickness])
+        rotate([180,0,0])
+            graphics_box();
+}
 else if (mod == "front_frame_left")
     front_frame_left();
 else if (mod == "front_frame_right")
@@ -231,6 +242,8 @@ else if (mod == "back_frame_top")
 else if (mod == "display") {
     back_frame();
     front_frame();
+    graphics_box();
+    graphics_pcb();
     if (have_side_buttons==1) side_buttons();
     if (have_bottom_buttons==1) bottom_buttons();
 }
@@ -239,6 +252,8 @@ else if (mod == "cut_display") {
         union() {
             back_frame();
             front_frame();
+            graphics_box();
+            graphics_pcb();
             if (have_side_buttons==1) side_buttons();
             if (have_bottom_buttons==1) bottom_buttons();
         }
