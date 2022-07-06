@@ -27,7 +27,7 @@ faceplate_inset=2;
 faceplate_lside_width=(have_side_buttons==1)? 22 : 6;
 faceplate_rside_width=(have_side_buttons==1)? 20 : 6;
 faceplate_top_width=6;
-faceplate_bottom_width=(have_bottom_buttons==1)? 25 : 6;
+faceplate_bottom_width=(have_bottom_buttons==1)? 27 : 6;
 faceplate_thickness=4;
 
 // backframe
@@ -53,7 +53,7 @@ button_bottom_offset=5;
 button_side_offset=5;
 
 // lcd panel pcb bosses
-pcb_boss_radius=2;
+pcb_boss_radius=1.9;
 pcb_thickness=1.5;
 
 button_boss_radius=3;
@@ -67,13 +67,14 @@ frame_hole_rad = 1.6;
 frame_boss_radius=3;
 
 // led coord
-led_placement = [-103,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2+7];
+led_placement = [-104.5,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2+8.5];
 led_rad = 2;
 cut_gap=.2;
 
 // graphics board
-graphics_box_height = 25;
+graphics_box_height = 30;
 graphics_box_thickness = 3;
+graphics_pcb_offset = 10;
 
 // graphics board pcb constants
 graphics_pcb_width = 90;

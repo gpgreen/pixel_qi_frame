@@ -186,7 +186,7 @@ module back_frame_top() {
             }
 }
 
-mod = "cut_display";
+mod = "front_frame";
 do_quarter_cut = false;
 
 if (mod == "front_frame") {
@@ -219,26 +219,10 @@ else if (mod == "side_button") {
     side_button();
 }
 else if (mod == "graphics_box") {
-    translate([0,0,faceplate_thickness])
+    translate([0,0,-backframe_thickness])
         rotate([180,0,0])
             graphics_box();
 }
-else if (mod == "front_frame_left")
-    front_frame_left();
-else if (mod == "front_frame_right")
-    front_frame_right();
-else if (mod == "front_frame_top")
-    front_frame_top();
-else if (mod == "front_frame_bottom")
-    front_frame_bottom();
-else if (mod == "back_frame_left")
-    back_frame_left();
-else if (mod == "back_frame_right")
-    back_frame_right();
-else if (mod == "back_frame_bottom")
-    back_frame_bottom();
-else if (mod == "back_frame_top")
-    back_frame_top();
 else if (mod == "display") {
     back_frame();
     front_frame();
@@ -261,3 +245,19 @@ else if (mod == "cut_display") {
             cube([display_width+50,100,100]);
     }
 }
+else if (mod == "front_frame_left")
+    front_frame_left();
+else if (mod == "front_frame_right")
+    front_frame_right();
+else if (mod == "front_frame_top")
+    front_frame_top();
+else if (mod == "front_frame_bottom")
+    front_frame_bottom();
+else if (mod == "back_frame_left")
+    back_frame_left();
+else if (mod == "back_frame_right")
+    back_frame_right();
+else if (mod == "back_frame_bottom")
+    back_frame_bottom();
+else if (mod == "back_frame_top")
+    back_frame_top();
