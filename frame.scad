@@ -6,7 +6,7 @@
 include <frame_config.scad>
 
 module frame_hole() {
-    cylinder(h=backframe_thickness*2, r=frame_hole_rad,$fn=96);
+    cylinder(h=backframe_thickness*2, r=frame_hole_radius,$fn=96);
 }
 
 module frame_holes() {
@@ -25,7 +25,7 @@ module frame_holes() {
         frame_hole();
     translate(trans[3])
         frame_hole();
-    translate([0,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2,-backframe_thickness])
+    translate([0,center_bottom_button_y,-backframe_thickness])
         frame_hole();
 }
 
@@ -61,19 +61,19 @@ module faceplate() {
 
 module led_hole() {
     translate([led_placement[0], led_placement[1], -8])
-        cylinder(r=led_rad, h=16, $fn=64);
+        cylinder(r=led_radius, h=16, $fn=64);
 }
 
 module button_hole() {
     minkowski() {
-        cube([button_width, button_height, faceplate_thickness+2], center=true);
-        cylinder(r=button_rad, h=1, $fn=64);
+        cube([button_width+.15, button_height+.15, faceplate_thickness+2], center=true);
+        cylinder(r=button_radius+.15, h=1, $fn=64);
     }
 }
 
 module bottom_button_holes() {
      for(x=bottom_button_x_offsets) {
-          translate([x,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2,2])
+          translate([x,center_bottom_button_y,2])
           button_hole();
      }
 }
@@ -82,7 +82,7 @@ module left_button_holes() {
     for(i=[0:num_side_buttons-1]) {
         yint = display_height/(num_side_buttons+1);
         y = yint * (num_side_buttons/2 - i);
-        translate([-display_width/2-faceplate_lside_width+button_side_offset+button_width/2,y-yint/2,2])
+        translate([center_left_button_x,y-yint/2,2])
             button_hole();
     }
 }
@@ -91,7 +91,7 @@ module right_button_holes() {
     for(i=[0:num_side_buttons-1]) {
         yint = display_height/(num_side_buttons+1);
         y = yint * (num_side_buttons/2 - i);
-        translate([display_width/2+faceplate_rside_width-button_side_offset-button_width/2,y-yint/2,2])
+        translate([center_right_button_x,y-yint/2,2])
             button_hole();
     }
 }
@@ -116,7 +116,7 @@ module left_button_pcb_bosses() {
     for(i=[0:num_side_buttons]) {
         yint = display_height/(num_side_buttons+1);
         y = yint * (num_side_buttons/2 - i + 1);
-        translate([-display_width/2-faceplate_lside_width+button_side_offset+button_width/2,y-yint,-button_boss_height])
+        translate([center_left_button_x,y-yint,-button_boss_height])
            button_pcb_boss();
     }
 }
@@ -125,14 +125,14 @@ module right_button_pcb_bosses() {
     for(i=[0:num_side_buttons]) {
         yint = display_height/(num_side_buttons+1);
         y = yint * (num_side_buttons/2 - i + 1);
-        translate([display_width/2+faceplate_rside_width-button_side_offset-button_width/2,y-yint,-button_boss_height])
+        translate([center_right_button_x,y-yint,-button_boss_height])
             button_pcb_boss();
         }
 }
 
 module bottom_button_pcb_bosses() {
     for(x=bottom_button_pcb_offsets) {
-        translate([x,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2,-button_boss_height])
+        translate([x,center_bottom_button_y,-button_boss_height])
             button_pcb_boss();
     }
 }
@@ -159,7 +159,7 @@ module outside_trim_all() {
 
 module faceplate_inner_trim() {
     linear_extrude(height=10, scale=1.05)
-    offset(r=faceplate_inset+2)
+    offset(r=faceplate_inset+2,$fn=64)
         polygon(points=[
             [-display_width/2+faceplate_inset+2+display_left_bezel,-display_height/2+faceplate_inset+2+display_bottom_bezel],
             [-display_width/2+faceplate_inset+2+display_left_bezel, display_height/2-faceplate_inset-2-display_top_bezel],
@@ -187,12 +187,12 @@ module front_frame_bosses() {
         front_frame_boss();
     translate(trans[3])
         front_frame_boss();
-    translate([0,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2,-flange_height])
+    translate([0,center_bottom_button_y,-flange_height])
         front_frame_boss();
 }
 
 module faceplate_assembly() {
-    translate([0,0,-flange_height])
+    translate([0,0,- flange_height])
         flange(flange_height);
     translate([0,0,faceplate_thickness/2])
         faceplate();
@@ -252,7 +252,7 @@ module left_back_pcb_bosses() {
     for(i=[0:num_side_buttons]) {
         yint = display_height/(num_side_buttons+1);
         y = yint * (num_side_buttons/2 - i + 1);
-        translate([-display_width/2-faceplate_lside_width+button_side_offset+button_width/2,y-yint,-backframe_thickness])
+        translate([center_left_button_x,y-yint,-backframe_thickness])
             back_pcb_boss();
     }
 }
@@ -261,19 +261,19 @@ module right_back_pcb_bosses() {
     for(i=[0:num_side_buttons]) {
         yint = display_height/(num_side_buttons+1);
         y = yint * (num_side_buttons/2 - i + 1);
-        translate([display_width/2+faceplate_rside_width-button_side_offset-button_width/2,y-yint,-backframe_thickness])
+        translate([center_right_button_x,y-yint,-backframe_thickness])
             back_pcb_boss();
     }
 }
 
 module bottom_back_pcb_bosses() {
     for(x=bottom_button_pcb_offsets) {
-        translate([x,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2,-backframe_thickness])
+        translate([x,center_bottom_button_y,-backframe_thickness])
             back_pcb_boss();
     }
 }
 
-module frame_boss() {
+module back_frame_boss() {
     cylinder(h=backframe_thickness-flange_height,r=frame_boss_radius,$fn=64);
 }
 
@@ -286,32 +286,58 @@ module back_frame_bosses() {
     trans = display_corners + bfb;
 
     translate(trans[0])
-        frame_boss();
+        back_frame_boss();
     translate(trans[1])
-        frame_boss();
+        back_frame_boss();
     translate(trans[2])
-        frame_boss();
+        back_frame_boss();
     translate(trans[3])
-        frame_boss();
-    translate([0,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2, -backframe_thickness])
-        frame_boss();
+        back_frame_boss();
+    translate([0,center_bottom_button_y, -backframe_thickness])
+        back_frame_boss();
+}
+
+module display_pad(thickness) {
+     cube([10,5,thickness]);
+}
+
+module display_pads() {
+    translate([-display_width/2+3,-5,-backframe_thickness+backframe_center_thickness])
+        rotate([0,0,90])
+            display_pad(backframe_thickness-backframe_center_thickness-display_thickness);
+    translate([display_width/2+2,-5,-backframe_thickness+backframe_center_thickness])
+        rotate([0,0,90])
+            display_pad(backframe_thickness-backframe_center_thickness-display_thickness);
+    translate([-45,display_height/2-3,-backframe_thickness+backframe_center_thickness])
+        display_pad(backframe_thickness-backframe_center_thickness-display_thickness);
+    translate([-45,-display_height/2-2,-backframe_thickness+backframe_center_thickness])
+        display_pad(backframe_thickness-backframe_center_thickness-display_thickness);
+    translate([45,display_height/2-3,-backframe_thickness+backframe_center_thickness])
+        display_pad(backframe_thickness-backframe_center_thickness-display_thickness);
+    translate([45,-display_height/2-2,-backframe_thickness+backframe_center_thickness])
+        display_pad(backframe_thickness-backframe_center_thickness-display_thickness);
 }
 
 module bottom_connector_hole() {
-    translate([bottom_connector_x,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2-4,-15])
+    translate([bottom_connector_x,center_bottom_button_y-4,-15])
         cube([15,8,20]);
 }
 
 module left_side_connector_hole() {
-    translate([-display_width/2-faceplate_lside_width+button_side_offset+button_width/2+4,-7,-15])
-        rotate(a=[0,0,90])
+    translate([center_left_button_x+4,-7,-15])
+        rotate(a=[0,0,-90])
             cube([14,8,20]);
 }
 
 module right_side_connector_hole() {
-    translate([display_width/2+faceplate_rside_width-button_side_offset-button_width/2+4,-7,-15])
+    translate([center_right_button_x+4,-7,-15])
         rotate(a=[0,0,90])
             cube([14,8,20]);
+}
+
+module display_button_connector_hole() {
+   translate([-95,-display_height/2-backframe_inset,-flange_height-3])
+       cube([24,10,5]);
 }
 
 module back_frame_assy() {
@@ -325,6 +351,7 @@ module back_frame_assy() {
     if (have_side_buttons==1) right_back_pcb_bosses();
     if (have_bottom_buttons==1) bottom_back_pcb_bosses();
     back_frame_bosses();
+    display_pads();
 }
 
 module back_frame() {
@@ -336,6 +363,7 @@ module back_frame() {
             left_side_connector_hole();
             right_side_connector_hole();
         }
+        if (have_display_buttons==1) display_button_connector_hole();
     }
 }
 

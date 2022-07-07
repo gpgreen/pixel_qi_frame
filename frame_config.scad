@@ -8,14 +8,19 @@ have_side_buttons=0;
 have_bottom_buttons=1;
 have_led_hole=1;
 have_connector_holes=0;
+have_display_buttons=1;
+show_pcbs=1;
 
 // display
 display_width=234;
 display_height=143;
+// distances in from outside to viewing surface of display
 display_top_bezel=8;
 display_bottom_bezel=8;
 display_left_bezel=4;
 display_right_bezel=6;
+// thickness of panel
+display_thickness=6;
 
 // flange inside frame
 flange_height=5;
@@ -24,10 +29,10 @@ flange_width=2;
 
 // faceplate
 faceplate_inset=2;
-faceplate_lside_width=(have_side_buttons==1)? 22 : 6;
-faceplate_rside_width=(have_side_buttons==1)? 20 : 6;
-faceplate_top_width=6;
-faceplate_bottom_width=(have_bottom_buttons==1)? 27 : 6;
+faceplate_lside_width=(have_side_buttons==1)? 22 : 10;
+faceplate_rside_width=(have_side_buttons==1)? 20 : 10;
+faceplate_top_width=10;
+faceplate_bottom_width=(have_bottom_buttons==1)? 28 : 10;
 faceplate_thickness=4;
 
 // backframe
@@ -45,7 +50,7 @@ bottom_connector_x = -20;
 button_width=6;
 button_height=4;
 button_thickness=faceplate_thickness+2;
-button_rad=1;
+button_radius=1;
 num_side_buttons=5;
 // center of button offset from outer frame edge
 button_bottom_offset=5;
@@ -63,12 +68,12 @@ backframe_boss_radius=3;
 backframe_boss_height=backframe_thickness-pcb_thickness-button_boss_height;
 
 // frame holes
-frame_hole_rad = 1.6;
+frame_hole_radius = 1.6;
 frame_boss_radius=3;
 
 // led coord
-led_placement = [-104.5,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2+8.5];
-led_rad = 2;
+led_placement = [-107.5,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2+9.5];
+led_radius = 2;
 cut_gap=.2;
 
 // graphics board
@@ -89,6 +94,10 @@ graphics_pcb_coords = [
 graphics_pcb_boss_height = 5;
 graphics_pcb_boss_radius = 4;
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// derived variables
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Vector of display corners
 display_corners = [
     [-display_width/2-faceplate_lside_width,-display_height/2-faceplate_bottom_width,0],
@@ -96,3 +105,7 @@ display_corners = [
     [display_width/2+faceplate_rside_width,display_height/2+faceplate_top_width,0],
     [display_width/2+faceplate_rside_width,-display_height/2-faceplate_bottom_width,0]
 ];
+
+center_left_button_x = -display_width/2-faceplate_lside_width+button_side_offset+button_width/2;
+center_right_button_x = display_width/2+faceplate_lside_width-button_side_offset-button_width/2;
+center_bottom_button_y = -display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2;
