@@ -29,9 +29,9 @@ flange_width=2;
 
 // faceplate
 faceplate_inset=2;
-faceplate_lside_width=(have_side_buttons==1)? 22 : 10;
+faceplate_lside_width=(have_side_buttons==1)? 22 : 12;
 faceplate_rside_width=(have_side_buttons==1)? 20 : 10;
-faceplate_top_width=10;
+faceplate_top_width=14;
 faceplate_bottom_width=(have_bottom_buttons==1)? 28 : 10;
 faceplate_thickness=4;
 
@@ -45,8 +45,6 @@ bottom_button_x_offsets = [-100, -82, -69, -53, -36];
 bottom_button_pcb_offsets = [-91, -45];
 bottom_connector_x = -20;
 
-//button_width=10;
-//button_height=6;
 button_width=6;
 button_height=4;
 button_thickness=faceplate_thickness+2;
@@ -69,7 +67,8 @@ backframe_boss_height=backframe_thickness-pcb_thickness-button_boss_height;
 
 // frame holes
 frame_hole_radius = 1.6;
-frame_boss_radius=3;
+frame_hole_insert_radius = 2.5;
+frame_boss_radius = 5;
 
 // led coord
 led_placement = [-107.5,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2+9.5];
@@ -77,7 +76,7 @@ led_radius = 2;
 cut_gap=.2;
 
 // graphics board
-graphics_box_height = 30;
+graphics_box_height = 28;
 graphics_box_thickness = 3;
 graphics_pcb_offset = 10;
 
@@ -87,8 +86,9 @@ graphics_pcb_height = 66;
 graphics_pcb_thickness = 1.5;
 
 graphics_pcb_hole_radius = 1.6;
+graphics_pcb_insert_radius = 2.5;
 graphics_pcb_coords = [
-     [11,2], [88,2.5], [88,62], [2,62]
+     [11,2], [88,2.5], [88,62.5], [1.8,61.5]
 ];
 
 graphics_pcb_boss_height = 5;
@@ -106,6 +106,17 @@ display_corners = [
     [display_width/2+faceplate_rside_width,-display_height/2-faceplate_bottom_width,0]
 ];
 
+// center lines of buttons
 center_left_button_x = -display_width/2-faceplate_lside_width+button_side_offset+button_width/2;
 center_right_button_x = display_width/2+faceplate_lside_width-button_side_offset-button_width/2;
 center_bottom_button_y = -display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2;
+
+// vector of frame bolt hole centers
+bolt_offset = frame_boss_radius+3; // how far to offset from edge of display
+bolt_displ = display_corners + [
+     [bolt_offset, bolt_offset],
+     [bolt_offset,-bolt_offset],
+     [-bolt_offset,-bolt_offset],
+     [-bolt_offset,bolt_offset]
+];
+bolt_hole_centers = concat(bolt_displ, [[0, bolt_displ[2].y]], [[0, center_bottom_button_y]]);

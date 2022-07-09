@@ -22,25 +22,26 @@ module graphics_pcb_bosses() {
     }
 }
 
-module graphics_pcb_boss_hole() {
-    cylinder(h=100,r=graphics_pcb_hole_radius,$fn=96);
+module graphics_pcb_boss_hole(use_insert) {
+    rad = use_insert ? graphics_pcb_insert_radius : graphics_pcb_hole_radius;
+    cylinder(h=100,r=rad,$fn=96);
 }
 
-module graphics_pcb_boss_holes() {
+module graphics_pcb_boss_holes(use_insert) {
     for(coord=graphics_pcb_coords) {
         x = coord[0]+graphics_pcb_offset; y = coord[1]+graphics_pcb_offset;
         translate([x,y,-50])
-           graphics_pcb_boss_hole();
+           graphics_pcb_boss_hole(use_insert);
     }
 }
 
 module graphics_conx_hole() {
     translate([graphics_pcb_offset+graphics_box_thickness+2,
                box_height+2,
-               pcb_plane_z-8])
+               pcb_plane_z-10])
         rotate([90,0,0])
         minkowski() {
-            cube([38,2,6]);
+            cube([38,5,6]);
             cylinder(r=6,h=6,$fn=64);
         }
 }
@@ -70,7 +71,7 @@ module graphics_box_assy() {
         rotate([0,180,180]) {
             difference() {
                 graphics_box();
-                graphics_pcb_boss_holes();
+                graphics_pcb_boss_holes(true);
                 graphics_conx_hole();
             }
             if (show_pcbs==1)
@@ -84,10 +85,9 @@ module graphics_pcb() {
             translate([graphics_pcb_offset,graphics_pcb_offset,pcb_plane_z-graphics_pcb_thickness]) {
                 cube([graphics_pcb_width,graphics_pcb_height,graphics_pcb_thickness]);
             }
-            graphics_pcb_boss_holes();
+            graphics_pcb_boss_holes(false);
         }
     }
 }
 
 graphics_box_assy();
-graphics_pcb();

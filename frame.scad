@@ -5,28 +5,17 @@
 
 include <frame_config.scad>
 
-module frame_hole() {
-    cylinder(h=backframe_thickness*2, r=frame_hole_radius,$fn=96);
+module frame_hole(use_insert) {
+    rad = use_insert ? frame_hole_insert_radius : frame_hole_radius;
+    cylinder(h=backframe_thickness*2,r=rad,$fn=96);
 }
 
-module frame_holes() {
-    offset = frame_boss_radius+3;
-    fho = [[offset,offset,-backframe_thickness],
-        [offset,-offset,-backframe_thickness],
-        [-offset,-offset,-backframe_thickness],
-        [-offset,offset,-backframe_thickness]];
-    trans = display_corners + fho;
-
-    translate(trans[0])
-        frame_hole();
-    translate(trans[1])
-        frame_hole();
-    translate(trans[2])
-        frame_hole();
-    translate(trans[3])
-        frame_hole();
-    translate([0,center_bottom_button_y,-backframe_thickness])
-        frame_hole();
+module frame_holes(use_insert) {
+    z_offset = use_insert ? -backframe_thickness*2+faceplate_thickness-.5 : -backframe_thickness;
+    for (t = bolt_hole_centers) {
+        translate([t[0], t[1], z_offset])
+            frame_hole(use_insert);
+    }
 }
 
 module flange(ht) {
@@ -159,8 +148,8 @@ module outside_trim_all() {
 
 module faceplate_inner_trim() {
     linear_extrude(height=10, scale=1.05)
-    offset(r=faceplate_inset+2,$fn=64)
-        polygon(points=[
+        offset(r=faceplate_inset+2,$fn=64)
+            polygon(points=[
             [-display_width/2+faceplate_inset+2+display_left_bezel,-display_height/2+faceplate_inset+2+display_bottom_bezel],
             [-display_width/2+faceplate_inset+2+display_left_bezel, display_height/2-faceplate_inset-2-display_top_bezel],
             [display_width/2-faceplate_inset-2-display_right_bezel, display_height/2-faceplate_inset-2-display_top_bezel],
@@ -172,27 +161,14 @@ module front_frame_boss() {
 }
 
 module front_frame_bosses() {
-    offset = frame_boss_radius+3;
-    ffb = [[offset,offset,-flange_height],
-        [offset,-offset,-flange_height],
-        [-offset,-offset,-flange_height],
-        [-offset,offset,-flange_height]];
-    trans = display_corners + ffb;
-
-    translate(trans[0])
-        front_frame_boss();
-    translate(trans[1])
-        front_frame_boss();
-    translate(trans[2])
-        front_frame_boss();
-    translate(trans[3])
-        front_frame_boss();
-    translate([0,center_bottom_button_y,-flange_height])
-        front_frame_boss();
+    for (t = bolt_hole_centers) {
+        translate([t.x, t.y, -flange_height])
+            front_frame_boss();
+    }
 }
 
 module faceplate_assembly() {
-    translate([0,0,- flange_height])
+    translate([0,0,-flange_height])
         flange(flange_height);
     translate([0,0,faceplate_thickness/2])
         faceplate();
@@ -208,7 +184,7 @@ module front_frame() {
         outside_trim_all();
         if (have_side_buttons==1 || have_bottom_buttons==1) button_holes();
         faceplate_inner_trim();
-        frame_holes();
+        frame_holes(true);
         if (have_led_hole==1) led_hole();
     }
 }
@@ -278,23 +254,10 @@ module back_frame_boss() {
 }
 
 module back_frame_bosses() {
-    offset = frame_boss_radius+3;
-    bfb = [[offset,offset,-backframe_thickness],
-        [offset,-offset,-backframe_thickness],
-        [-offset,-offset,-backframe_thickness],
-        [-offset,offset,-backframe_thickness]];
-    trans = display_corners + bfb;
-
-    translate(trans[0])
-        back_frame_boss();
-    translate(trans[1])
-        back_frame_boss();
-    translate(trans[2])
-        back_frame_boss();
-    translate(trans[3])
-        back_frame_boss();
-    translate([0,center_bottom_button_y, -backframe_thickness])
-        back_frame_boss();
+    for (t = bolt_hole_centers) {
+        translate([t.x, t.y, -backframe_thickness])
+            back_frame_boss();
+    }
 }
 
 module display_pad(thickness) {
@@ -357,7 +320,7 @@ module back_frame_assy() {
 module back_frame() {
     difference() {
         back_frame_assy();
-        frame_holes();
+        frame_holes(false);
         if (have_connector_holes==1 && have_bottom_buttons==1) bottom_connector_hole();
         if (have_connector_holes==1 && have_side_buttons==1) {
             left_side_connector_hole();
