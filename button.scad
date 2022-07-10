@@ -52,12 +52,10 @@ module side_button() {
 }
 
 module side_buttons() {
-    for(i=[0:num_side_buttons-1]) {
-        yint = display_height/(num_side_buttons+1);
-        y = yint * (num_side_buttons/2 - i);
-        translate([center_left_button_x,y-yint/2,-1])
+    for(y = side_button_y_offsets) {
+        translate([center_left_button_x,y,-1])
             side_button();
-	    translate([center_right_button_x,y-yint/2,-1])
+	    translate([center_right_button_x,y,-1])
 	        side_button();
     }
 }

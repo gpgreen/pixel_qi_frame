@@ -67,28 +67,18 @@ module bottom_button_holes() {
      }
 }
 
-module left_button_holes() {
-    for(i=[0:num_side_buttons-1]) {
-        yint = display_height/(num_side_buttons+1);
-        y = yint * (num_side_buttons/2 - i);
-        translate([center_left_button_x,y-yint/2,2])
+module side_button_holes() {
+    for(y = side_button_y_offsets) {
+        translate([center_left_button_x,y,2])
             button_hole();
-    }
-}
-
-module right_button_holes() {
-    for(i=[0:num_side_buttons-1]) {
-        yint = display_height/(num_side_buttons+1);
-        y = yint * (num_side_buttons/2 - i);
-        translate([center_right_button_x,y-yint/2,2])
+        translate([center_right_button_x,y,2])
             button_hole();
     }
 }
 
 module button_holes() {
     if (have_side_buttons==1) {
-        left_button_holes();
-        right_button_holes();
+        side_button_holes();
     }
     if (have_bottom_buttons==1) {
         bottom_button_holes();
@@ -101,22 +91,13 @@ module button_pcb_boss() {
         cylinder(h=pcb_thickness,r=pcb_boss_radius,$fn=64);
 }
 
-module left_button_pcb_bosses() {
-    for(i=[0:num_side_buttons]) {
-        yint = display_height/(num_side_buttons+1);
-        y = yint * (num_side_buttons/2 - i + 1);
-        translate([center_left_button_x,y-yint,-button_boss_height])
+module side_button_pcb_bosses() {
+    for(y = side_button_pcb_offsets) {
+        translate([center_left_button_x,y,-button_boss_height])
+           button_pcb_boss();
+        translate([center_right_button_x,y,-button_boss_height])
            button_pcb_boss();
     }
-}
-
-module right_button_pcb_bosses() {
-    for(i=[0:num_side_buttons]) {
-        yint = display_height/(num_side_buttons+1);
-        y = yint * (num_side_buttons/2 - i + 1);
-        translate([center_right_button_x,y-yint,-button_boss_height])
-            button_pcb_boss();
-        }
 }
 
 module bottom_button_pcb_bosses() {
@@ -172,8 +153,7 @@ module faceplate_assembly() {
         flange(flange_height);
     translate([0,0,faceplate_thickness/2])
         faceplate();
-    if (have_side_buttons==1) left_button_pcb_bosses();
-    if (have_side_buttons==1) right_button_pcb_bosses();
+    if (have_side_buttons==1) side_button_pcb_bosses();
     if (have_bottom_buttons==1) bottom_button_pcb_bosses();
     front_frame_bosses();
 }
@@ -224,20 +204,11 @@ module back_pcb_boss() {
     cylinder(h=backframe_boss_height,r=backframe_boss_radius,$fn=64);
 }
 
-module left_back_pcb_bosses() {
-    for(i=[0:num_side_buttons]) {
-        yint = display_height/(num_side_buttons+1);
-        y = yint * (num_side_buttons/2 - i + 1);
-        translate([center_left_button_x,y-yint,-backframe_thickness])
+module side_back_pcb_bosses() {
+    for(y = side_button_pcb_offsets) {
+        translate([center_left_button_x,y,-backframe_thickness])
             back_pcb_boss();
-    }
-}
-
-module right_back_pcb_bosses() {
-    for(i=[0:num_side_buttons]) {
-        yint = display_height/(num_side_buttons+1);
-        y = yint * (num_side_buttons/2 - i + 1);
-        translate([center_right_button_x,y-yint,-backframe_thickness])
+        translate([center_right_button_x,y,-backframe_thickness])
             back_pcb_boss();
     }
 }
@@ -310,8 +281,7 @@ module back_frame_assy() {
         back_frame_outer_flange();
     translate([0,0,-backframe_thickness])
         flange(backframe_thickness-flange_height);
-    if (have_side_buttons==1) left_back_pcb_bosses();
-    if (have_side_buttons==1) right_back_pcb_bosses();
+    if (have_side_buttons==1) side_back_pcb_bosses();
     if (have_bottom_buttons==1) bottom_back_pcb_bosses();
     back_frame_bosses();
     display_pads();

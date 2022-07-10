@@ -186,7 +186,7 @@ module back_frame_top() {
             }
 }
 
-mod = "front_frame";
+mod = "display";
 do_quarter_cut = false;
 
 if (mod == "front_frame") {

@@ -40,6 +40,10 @@ backframe_thickness=11;
 backframe_center_thickness=2;
 backframe_inset=5;
 
+// side button placement
+side_button_y_offsets = [-48, -24, 0, 24, 48];
+side_button_pcb_offsets = [60,36,12,-12,-36,-60];
+
 // bottom button placement
 bottom_button_x_offsets = [-100, -82, -69, -53, -36];
 bottom_button_pcb_offsets = [-91, -45];
@@ -49,7 +53,6 @@ button_width=6;
 button_height=4;
 button_thickness=faceplate_thickness+2;
 button_radius=1;
-num_side_buttons=5;
 // center of button offset from outer frame edge
 button_bottom_offset=5;
 // inner edge of button offset from inner frame edge
