@@ -49,8 +49,8 @@ module faceplate() {
 }
 
 module led_hole() {
-    translate([led_placement[0], led_placement[1], -8])
-        cylinder(r=led_radius, h=16, $fn=64);
+    translate([led_placement.x,center_bottom_button_y+led_placement.y,-8])
+        cylinder(r=led_radius, h=16, $fn=96);
 }
 
 module button_hole() {

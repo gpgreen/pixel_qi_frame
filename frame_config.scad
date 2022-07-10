@@ -71,8 +71,8 @@ frame_hole_insert_radius = 2.5;
 frame_boss_radius = 5;
 
 // led coord
-led_placement = [-107.5,-display_height/2-faceplate_bottom_width+button_bottom_offset+button_height/2+9.5];
-led_radius = 2;
+led_placement = [-102.5,7.5];
+led_radius = 1.6;
 cut_gap=.2;
 
 // graphics board
