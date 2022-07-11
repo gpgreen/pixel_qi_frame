@@ -188,7 +188,7 @@ module back_frame_top() {
             }
 }
 
-mod = "back_frame";
+mod = "graphics_box";
 do_quarter_cut = false;
 
 if (mod == "front_frame") {
@@ -231,6 +231,7 @@ else if (mod == "display") {
     graphics_box_assy();
     if (have_side_buttons==1) side_buttons();
     if (have_bottom_buttons==1) bottom_buttons();
+    if (show_pcbs==1) graphics_pcb();
 }
 else if (mod == "display_cut") {
     difference() {
@@ -238,8 +239,9 @@ else if (mod == "display_cut") {
             back_frame();
             front_frame();
             graphics_box_assy();
-           if (have_side_buttons==1) side_buttons();
+            if (have_side_buttons==1) side_buttons();
             if (have_bottom_buttons==1) bottom_buttons();
+            if (show_pcbs==1) graphics_pcb();
         }
         translate([-display_width/2-faceplate_lside_width-10,-100-display_height/2-faceplate_bottom_width+7,-50])
             cube([display_width+50,100,100]);

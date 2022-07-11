@@ -47,8 +47,24 @@ module graphics_conx_hole() {
 }
 
 module graphics_box_flange() {
-     translate([-(display_width/2-box_width/2),-(display_height/2-box_height/2),0])
-          cube([display_width,display_height,graphics_box_thickness]);
+    translate([-(display_width/2-box_width/2+5),-(display_height/2-box_height/2+5),0])
+        cube([display_width+10,display_height+10,graphics_box_thickness]);
+}
+
+module bolt_holes() {
+    for (t=bolt_hole_centers) {
+        translate([t.x,t.y,-backframe_thickness-5])
+            cylinder(r=1.6,h=10,$fn=96);
+    }
+}
+
+module hole_tab(length) {
+    linear_extrude(height=graphics_box_thickness)
+        hull() {
+            translate([length,0,0])
+                circle(r=6,$fn=64);
+            circle(r=6,$fn=64);
+        }
 }
 
 module graphics_box() {
@@ -66,21 +82,48 @@ module graphics_box() {
     graphics_pcb_bosses();
 }
 
+module bolt_hole_tabs() {
+    translate([bolt_hole_centers[0].x,bolt_hole_centers[0].y,-backframe_thickness-graphics_box_thickness])
+        rotate([0,0,70])
+            hole_tab(25);
+    translate([bolt_hole_centers[1].x,bolt_hole_centers[1].y,-backframe_thickness-graphics_box_thickness])
+        rotate([0,0,300])
+            hole_tab(25);
+    translate([bolt_hole_centers[2].x,bolt_hole_centers[2].y,-backframe_thickness-graphics_box_thickness])
+        rotate([0,0,260])
+            hole_tab(25);
+    translate([bolt_hole_centers[3].x,bolt_hole_centers[3].y,-backframe_thickness-graphics_box_thickness])
+        rotate([0,0,100])
+            hole_tab(25);
+    translate([bolt_hole_centers[4].x,bolt_hole_centers[4].y,-backframe_thickness-graphics_box_thickness])
+        rotate([0,0,270])
+            hole_tab(25);
+    translate([bolt_hole_centers[5].x,bolt_hole_centers[5].y,-backframe_thickness-graphics_box_thickness])
+        rotate([0,0,90])
+            hole_tab(25);
+}
+
 module graphics_box_assy() {
-    translate([-box_width/2,box_height/2,-backframe_thickness])
-        rotate([0,180,180]) {
-            difference() {
-                graphics_box();
-                graphics_pcb_boss_holes(true);
-                graphics_conx_hole();
-            }
-            if (show_pcbs==1)
-                graphics_pcb();
+    difference() {
+        union() {
+            translate([-box_width/2,box_height/2,-backframe_thickness])
+                rotate([0,180,180]) {
+                    difference() {
+                        graphics_box();
+                        graphics_pcb_boss_holes(true);
+                        graphics_conx_hole();
+                    }
+                }
+            bolt_hole_tabs();
         }
+        bolt_holes();
+    }
 }
 
 module graphics_pcb() {
     color("ForestGreen", 1.0) {
+        translate([-box_width/2,box_height/2,-backframe_thickness])
+            rotate([0,180,180])
         difference() {
             translate([graphics_pcb_offset,graphics_pcb_offset,pcb_plane_z-graphics_pcb_thickness]) {
                 cube([graphics_pcb_width,graphics_pcb_height,graphics_pcb_thickness]);
