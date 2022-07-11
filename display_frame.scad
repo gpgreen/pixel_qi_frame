@@ -20,6 +20,8 @@ fcut_line = [
 [-5,-2],
 [-5,-backframe_thickness+2]];
 
+cut_gap=.2;
+
 module front_cutoff_bottom() {
     fcut_offset=[
     [-cut_gap,0],
@@ -186,7 +188,7 @@ module back_frame_top() {
             }
 }
 
-mod = "display";
+mod = "back_frame";
 do_quarter_cut = false;
 
 if (mod == "front_frame") {

@@ -76,7 +76,6 @@ frame_boss_radius = 5;
 // led coord
 led_placement = [-102.5,7.5];
 led_radius = 1.6;
-cut_gap=.2;
 
 // graphics board
 graphics_box_height = 28;
